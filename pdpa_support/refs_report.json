@@ -1,0 +1,24 @@
+{
+  "checked_at": "2026-09-05T21:37:46+09:00",
+  "changed": [
+    {
+      "id": "REF-002",
+      "title": "「人とペットの災害対策ガイドライン」の改訂等に係る検討会",
+      "issuer": "環境省",
+      "url": "https://www.env.go.jp/nature/dobutsu/aigo/2_data/saigai_guide_pet.html",
+      "prev_checked_at": "2026-09-05T21:37:03+09:00",
+      "size_before": 747,
+      "size_after": 747,
+      "affected_slides": [
+        {
+          "material": "PDPA-100",
+          "page": 14,
+          "source": "出典：環境省 報道発表（令和8年6月8日）「『人とペットの災害対策ガイドライン』の改訂案に係る意見の募集（パブリック・コメント）について」意見募集：令和8年6月8日〜26日"
+        }
+      ],
+      "note": "最優先の監視対象。改訂版が公表された瞬間にここが更新される"
+    }
+  ],
+  "errors": [],
+  "unchanged": 0
+}

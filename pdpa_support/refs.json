@@ -1,0 +1,103 @@
+{
+  "_about": "PDPA 出典管理台帳。教材が根拠にしている公的資料の一覧。check_refs.py が各 url を日次で取得し、内容の変化を検知したら影響を受ける教材ページを通知する。",
+  "_version": "1.0",
+  "_updated": "2026-09-05",
+  "refs": [
+    {
+      "id": "REF-001",
+      "title": "人とペットの災害対策ガイドライン",
+      "issuer": "環境省 自然環境局 総務課 動物愛護管理室",
+      "edition": "平成30年3月",
+      "url": "https://www.env.go.jp/nature/dobutsu/aigo/2_data/pamph/h3002.html",
+      "note": "教材の中核。改訂されたら同行避難・同伴避難の定義ページを必ず再確認する"
+    },
+    {
+      "id": "REF-002",
+      "title": "「人とペットの災害対策ガイドライン」の改訂等に係る検討会",
+      "issuer": "環境省",
+      "edition": "検討中（改訂案パブコメ 令和8年6月8日〜26日）",
+      "url": "https://www.env.go.jp/nature/dobutsu/aigo/2_data/saigai_guide_pet.html",
+      "note": "最優先の監視対象。改訂版が公表された瞬間にここが更新される"
+    },
+    {
+      "id": "REF-003",
+      "title": "災害、あなたとペットは大丈夫？ 人とペットの災害対策ガイドライン＜一般飼い主編＞",
+      "issuer": "環境省 自然環境局 総務課 動物愛護管理室",
+      "edition": "平成30年",
+      "url": "https://www.env.go.jp/nature/dobutsu/aigo/2_data/pamph/h3009a.html",
+      "note": "ワーク・宿題の出典"
+    },
+    {
+      "id": "REF-004",
+      "title": "避難情報に関するガイドライン",
+      "issuer": "内閣府（防災担当）",
+      "edition": "令和8年3月改定",
+      "url": "https://www.bousai.go.jp/oukyu/hinanjouhou/r3_hinanjouhou_guideline/",
+      "note": "警戒レベル5段階の根拠"
+    },
+    {
+      "id": "REF-005",
+      "title": "避難所の生活環境対策（避難所運営ガイドライン／避難生活における良好な生活環境の確保に向けた取組指針）",
+      "issuer": "内閣府（防災担当）",
+      "edition": "避難所運営ガイドライン 平成28年4月／取組指針 平成25年8月・令和6年12月改定",
+      "url": "https://www.bousai.go.jp/taisaku/hinanjo/index.html",
+      "note": "同伴避難の用語と、避難所のペット受入れ方針の根拠"
+    },
+    {
+      "id": "REF-006",
+      "title": "新たな防災気象情報について（令和8年〜）",
+      "issuer": "気象庁",
+      "edition": "令和8年5月29日運用開始",
+      "url": "https://www.jma.go.jp/jma/kishou/know/bosai/keiho-update2026/index.html",
+      "note": "情報名称にレベル数字が付く新体系。運用開始直後のため変更が入りやすい"
+    },
+    {
+      "id": "REF-007",
+      "title": "ハザードマップポータルサイト",
+      "issuer": "国土交通省・国土地理院",
+      "edition": "常時更新",
+      "url": "https://disaportal.gsi.go.jp/",
+      "note": "重ねるハザードマップ／わがまちハザードマップ"
+    },
+    {
+      "id": "REF-008",
+      "title": "犬と猫のマイクロチップ情報登録について",
+      "issuer": "環境省",
+      "edition": "令和4年6月1日 改正動物愛護管理法施行",
+      "url": "https://www.env.go.jp/nature/dobutsu/aigo/pickup/chip.html",
+      "note": "指定登録機関は公益社団法人 日本獣医師会"
+    },
+    {
+      "id": "REF-009",
+      "title": "応急手当WEB講習（e-ラーニング）",
+      "issuer": "総務省消防庁",
+      "edition": "2023年3月改訂版",
+      "url": "https://www.fdma.go.jp/relocation/kyukyukikaku/oukyu/",
+      "note": "実技講習の時間短縮は「地域によっては」であり全国一律ではない。断定表現を使わない"
+    },
+    {
+      "id": "REF-010",
+      "title": "ペットの災害対策",
+      "issuer": "環境省",
+      "edition": "常時更新",
+      "url": "https://www.env.go.jp/nature/dobutsu/aigo/1_law/disaster.html",
+      "note": "制度全体の入口ページ"
+    },
+    {
+      "id": "REF-011",
+      "title": "防災白書",
+      "issuer": "内閣府（防災担当）",
+      "edition": "PDPA-100 では平成18年版の統計を引用（国土面積0.25%／M6以上20.8%／活火山7.0%／被害額18.3%）",
+      "url": "https://www.bousai.go.jp/kaigirep/hakusho/",
+      "note": "版によって数値が変動するため、教材では必ず版を明記して引用する"
+    },
+    {
+      "id": "REF-012",
+      "title": "防災情報のページ",
+      "issuer": "内閣府（防災担当）",
+      "edition": "常時更新",
+      "url": "https://www.bousai.go.jp/",
+      "note": "災害種別の一般的な記述の根拠"
+    }
+  ]
+}

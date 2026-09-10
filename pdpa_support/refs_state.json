@@ -1,0 +1,74 @@
+{
+  "REF-001": {
+    "hash": "5bf6118b2c2b48970c9692763f7cba7619ed3864cd3a37a98fcc832ed7502de0",
+    "size": 1091,
+    "checked_at": "2026-09-05T21:37:03+09:00",
+    "url": "https://www.env.go.jp/nature/dobutsu/aigo/2_data/pamph/h3002.html"
+  },
+  "REF-002": {
+    "hash": "cf845b3fd6cdd759bb18122a4a4feb0a2065d649fbf126bbe0697f41be45c583",
+    "size": 747,
+    "checked_at": "2026-09-05T21:37:47+09:00",
+    "url": "https://www.env.go.jp/nature/dobutsu/aigo/2_data/saigai_guide_pet.html"
+  },
+  "REF-003": {
+    "hash": "057c0ddaafd3ad38d86bc3939bb7226697946d67285a95fdc5f459f5a487631f",
+    "size": 895,
+    "checked_at": "2026-09-05T21:37:03+09:00",
+    "url": "https://www.env.go.jp/nature/dobutsu/aigo/2_data/pamph/h3009a.html"
+  },
+  "REF-004": {
+    "hash": "b52bcb7e6d5a3dbe005c9cf688460a41fd7159626c017980f9360f4b49d916a8",
+    "size": 3231,
+    "checked_at": "2026-09-05T21:37:03+09:00",
+    "url": "https://www.bousai.go.jp/oukyu/hinanjouhou/r3_hinanjouhou_guideline/"
+  },
+  "REF-005": {
+    "hash": "ce560e22f7b6ec6ad17dcedacbd66b0c96b704889779f388bcf910149569c2cb",
+    "size": 7740,
+    "checked_at": "2026-09-05T21:37:03+09:00",
+    "url": "https://www.bousai.go.jp/taisaku/hinanjo/index.html"
+  },
+  "REF-006": {
+    "hash": "2f7b767322603c11da9b3bc06f90973098b3650a90d5209b513e0223dad5b808",
+    "size": 7286,
+    "checked_at": "2026-09-05T21:37:03+09:00",
+    "url": "https://www.jma.go.jp/jma/kishou/know/bosai/keiho-update2026/index.html"
+  },
+  "REF-007": {
+    "hash": "9350feaca726f9f144f57cd2cced7ab19f540ee04fa5df9ebae63434c0267af1",
+    "size": 995,
+    "checked_at": "2026-09-05T21:37:03+09:00",
+    "url": "https://disaportal.gsi.go.jp/"
+  },
+  "REF-008": {
+    "hash": "4c711a84ff440ef910bd636d353f90027edf2c80fec6bbd8434cc6944fb4e5f9",
+    "size": 3101,
+    "checked_at": "2026-09-05T21:37:03+09:00",
+    "url": "https://www.env.go.jp/nature/dobutsu/aigo/pickup/chip.html"
+  },
+  "REF-009": {
+    "hash": "441ef51becb9821a6b62c3bfcfa6adddcbb37eb2b2281df66af4056da90f7570",
+    "size": 250,
+    "checked_at": "2026-09-05T21:37:03+09:00",
+    "url": "https://www.fdma.go.jp/relocation/kyukyukikaku/oukyu/"
+  },
+  "REF-010": {
+    "hash": "60e3c11d9271e5f83f2c1eb29282c6636e5dbc9d26af5a052f2f1a5c8470df6a",
+    "size": 2688,
+    "checked_at": "2026-09-05T21:37:03+09:00",
+    "url": "https://www.env.go.jp/nature/dobutsu/aigo/1_law/disaster.html"
+  },
+  "REF-011": {
+    "hash": "b3cbfdc7166f06651fd8e2746dab04e7d844af573dfc7c93df940b62dad71267",
+    "size": 1291,
+    "checked_at": "2026-09-05T21:37:03+09:00",
+    "url": "https://www.bousai.go.jp/kaigirep/hakusho/"
+  },
+  "REF-012": {
+    "hash": "b76146e1291c952c3ec2ef8e1d3bbf912f51bef8f7e9c69239da366a9c82231b",
+    "size": 4967,
+    "checked_at": "2026-09-05T21:37:03+09:00",
+    "url": "https://www.bousai.go.jp/"
+  }
+}
