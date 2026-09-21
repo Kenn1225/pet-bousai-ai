@@ -41,62 +41,94 @@ function repairAndParseJson(raw: string): DiagnosisReport {
 
 export async function POST(req: NextRequest) {
   try {
+    console.log('[diagnose] Request started')
     const formData: DiagnosisFormData = await req.json()
+    console.log(`[diagnose] Received formData for pet: ${formData.pets?.[0]?.type}`)
 
     // API キー確認
     if (!process.env.ANTHROPIC_API_KEY) {
-      throw new Error('ANTHROPIC_API_KEY が設定されていません')
+      const msg = 'ANTHROPIC_API_KEY が設定されていません'
+      console.error(`[diagnose] ${msg}`)
+      return NextResponse.json({ error: msg }, { status: 500 })
     }
 
     // スコア計算
+    console.log('[diagnose] Calculating scores...')
     const scores = calcRiskScores(formData)
+    console.log(`[diagnose] Scores calculated: overall=${scores.overall}`)
 
     // AI版のプロンプト生成
+    console.log('[diagnose] Building prompt...')
     const prompt = buildDiagnosisPrompt(formData, scores)
+    console.log(`[diagnose] Prompt length: ${prompt.length} chars`)
 
     // Claude API クライアント作成（リクエスト時）
+    console.log('[diagnose] Creating Anthropic client...')
     const client = new Anthropic({
       apiKey: process.env.ANTHROPIC_API_KEY,
     })
 
-    // Claude API を呼び出し（ストリーミングで確実に応答を取得）
+    // Claude API を呼び出し
+    console.log('[diagnose] Calling Claude API...')
+    const model = process.env.DIAGNOSE_MODEL ?? 'claude-haiku-4-5-20251001'
+    console.log(`[diagnose] Model: ${model}`)
+
     const message = await client.messages.create({
-      model: process.env.DIAGNOSE_MODEL ?? 'claude-haiku-4-5-20251001',
+      model,
       max_tokens: 6000,
       messages: [{ role: 'user', content: prompt }],
     })
+
+    console.log(`[diagnose] Claude API response received. Content blocks: ${message.content.length}`)
 
     const rawText = message.content
       .filter(b => b.type === 'text')
       .map(b => (b as { type: 'text'; text: string }).text)
       .join('')
 
+    console.log(`[diagnose] Raw text length: ${rawText.length}`)
+
     if (!rawText) {
-      throw new Error('Claude から空の応答を受け取りました')
+      const msg = 'Claude から空の応答を受け取りました'
+      console.error(`[diagnose] ${msg}`)
+      return NextResponse.json({ error: msg }, { status: 500 })
     }
 
     // JSON を抽出
     const jsonMatch = rawText.match(/\{[\s\S]*/)
     if (!jsonMatch) {
-      console.error('[diagnose] Raw response:', rawText.substring(0, 500))
-      throw new Error('Claude からの JSON 抽出に失敗しました')
+      console.error('[diagnose] JSON extraction failed')
+      console.error('[diagnose] Raw response:', rawText.substring(0, 1000))
+      const msg = 'Claude からの JSON 抽出に失敗しました'
+      return NextResponse.json({ error: msg }, { status: 500 })
     }
 
     // JSON をパースして修復
-    let report: DiagnosisReport = repairAndParseJson(jsonMatch[0])
+    console.log('[diagnose] Parsing JSON...')
+    let report: DiagnosisReport
+    try {
+      report = repairAndParseJson(jsonMatch[0])
+      console.log('[diagnose] JSON parsed successfully')
+    } catch (parseErr) {
+      console.error('[diagnose] JSON parse error:', parseErr instanceof Error ? parseErr.message : parseErr)
+      console.error('[diagnose] Attempted to parse:', jsonMatch[0].substring(0, 500))
+      throw parseErr
+    }
+
     report.riskScores = scores
 
     // reportDefaults で後付け強化
+    console.log('[diagnose] Enriching report...')
     enrichReport(report, formData)
+    console.log('[diagnose] Report enriched')
 
-    if (process.env.NODE_ENV !== 'production') {
-      console.log(`[diagnose] mode=ai success pet=${formData.pets?.[0]?.type ?? 'unknown'}`)
-    }
+    console.log(`[diagnose] ✅ Success: pet=${formData.pets?.[0]?.type}`)
 
     return NextResponse.json({ report, scores, formData })
   } catch (err) {
-    console.error('[diagnose] error:', err instanceof Error ? err.message : err)
-    const errorMsg = err instanceof Error ? err.message : '診断中にエラーが発生しました'
+    const errorMsg = err instanceof Error ? err.message : String(err)
+    console.error('[diagnose] ❌ Error:', errorMsg)
+    console.error('[diagnose] Stack:', err instanceof Error ? err.stack : 'N/A')
     return NextResponse.json({ error: errorMsg }, { status: 500 })
   }
 }

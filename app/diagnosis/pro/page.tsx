@@ -74,19 +74,41 @@ export default function ProDiagnosisPage() {
   async function handleSubmit(mode: 'free' | 'ai') {
     setLoading(true)
     setError(null)
+    setDiagnosisMode(mode)
     try {
       const endpoint = mode === 'free' ? '/api/diagnose-free' : '/api/diagnose'
+      console.log(`[frontend] Starting ${mode} diagnosis...`)
+      console.log(`[frontend] Endpoint: ${endpoint}`)
+
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       })
+
+      console.log(`[frontend] Response status: ${res.status}`)
+
       const json = await res.json()
-      if (!res.ok) throw new Error(json.error ?? '診断に失敗しました')
+      console.log(`[frontend] Response received:`, { hasReport: !!json.report, hasError: !!json.error })
+
+      if (!res.ok) {
+        const errorMsg = json.error ?? `HTTP ${res.status}: 診断に失敗しました`
+        console.error(`[frontend] API error: ${errorMsg}`)
+        throw new Error(errorMsg)
+      }
+
+      if (!json.report) {
+        console.error('[frontend] No report in response:', json)
+        throw new Error('診断結果が空です')
+      }
+
+      console.log('[frontend] Storing result and navigating...')
       sessionStorage.setItem('proResult', JSON.stringify(json))
       router.push('/diagnosis/pro/result')
     } catch (e) {
-      setError(e instanceof Error ? e.message : '診断中にエラーが発生しました')
+      const errorMsg = e instanceof Error ? e.message : '診断中にエラーが発生しました'
+      console.error('[frontend] Exception:', errorMsg)
+      setError(errorMsg)
       setLoading(false)
     }
   }

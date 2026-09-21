@@ -7,11 +7,6 @@ import Link from 'next/link'
 export default function DiagnosisSelectPage() {
   const router = useRouter()
 
-  // 認証チェックをバイパス - ランディングページとして表示
-  useEffect(() => {
-    // ページが読み込まれたことを確認（認証バイパス）
-    console.log('[diagnosis] landing page loaded')
-  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">

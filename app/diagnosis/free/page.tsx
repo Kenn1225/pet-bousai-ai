@@ -108,14 +108,19 @@ export default function SimpleDiagnosisPage() {
       hasMedRecord: 'ない',
     }
     try {
-      const res = await fetch('/api/diagnose', {
+      const res = await fetch('/api/diagnose-free', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
       const json = await res.json()
       if (!res.ok) throw new Error(json.error ?? '診断に失敗しました')
-      sessionStorage.setItem('diagnosisResult', JSON.stringify(json))
+      console.log('[handleSubmit] API response:', json)
+      if (!json.report) {
+        console.error('[handleSubmit] Missing report in response:', json)
+        throw new Error('レスポンスにreportが含まれていません')
+      }
+      sessionStorage.setItem('diagnosisResult', JSON.stringify(json.report))
       router.push('/diagnosis/result')
     } catch (e) {
       setError(e instanceof Error ? e.message : '診断中にエラーが発生しました')
