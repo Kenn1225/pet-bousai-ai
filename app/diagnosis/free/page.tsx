@@ -41,10 +41,14 @@ export default function SimpleDiagnosisPage() {
   const router = useRouter()
   const [step, setStep] = useState(1)
 
-  // 認証をバイパス（テスト用）
+  // Pass Code 認証チェック
   useEffect(() => {
-    document.cookie = 'pet_auth=test_code; path=/; max-age=31536000'
-  }, [])
+    const hasCookie = document.cookie.split('; ').some(row => row.startsWith('pet_auth='))
+    if (!hasCookie) {
+      router.push('/auth?redirect=/diagnosis/free')
+    }
+  }, [router])
+
   const [data, setData] = useState<SimpleFormData>({ diseases: ['なし'], hasCrate: 'ない', hasIdTag: 'ない' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)

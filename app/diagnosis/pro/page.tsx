@@ -27,10 +27,14 @@ export default function ProDiagnosisPage() {
   const router = useRouter()
   const [step, setStep] = useState(1)
 
-  // 認証をバイパス（テスト用）
+  // Pass Code 認証チェック
   useEffect(() => {
-    document.cookie = 'pet_auth=test_code; path=/; max-age=31536000'
-  }, [])
+    const hasCookie = document.cookie.split('; ').some(row => row.startsWith('pet_auth='))
+    if (!hasCookie) {
+      router.push('/auth?redirect=/diagnosis/pro')
+    }
+  }, [router])
+
   const [data, setData] = useState<Partial<DiagnosisFormData>>(INITIAL)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -163,21 +167,10 @@ export default function ProDiagnosisPage() {
               次へ →
             </button>
           ) : (
-            <>
-              <button type="button" onClick={() => handleSubmit('free')} disabled={!isValid() || loading}
-                className="flex-1 py-3 border-2 border-gray-300 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
-                {loading ? '処理中…' : '無料版で診断 (0円)'}
-              </button>
-              <button type="button" onClick={() => handleSubmit('ai')} disabled={!isValid() || loading}
-                className="flex-1 py-3 bg-violet-600 text-white rounded-xl text-sm font-semibold hover:bg-violet-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
-                {loading ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    AI が診断中…
-                  </span>
-                ) : 'AI版で診断 ✨'}
-              </button>
-            </>
+            <button type="button" onClick={() => handleSubmit('free')} disabled={!isValid() || loading}
+              className="w-full py-3 bg-violet-600 text-white rounded-xl text-sm font-semibold hover:bg-violet-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+              {loading ? '処理中…' : '診断する'}
+            </button>
           )}
         </div>
       </div>

@@ -11,10 +11,13 @@ const PET_TYPES: (keyof typeof PET_MASTER)[] = ['犬', '猫', 'うさぎ', 'ハ�
 export default function LocationDiagnosisPage() {
   const router = useRouter()
 
-  // 認証をバイパス（テスト用）
+  // Pass Code 認証チェック
   useEffect(() => {
-    document.cookie = 'pet_auth=test_code; path=/; max-age=31536000'
-  }, [])
+    const hasCookie = document.cookie.split('; ').some(row => row.startsWith('pet_auth='))
+    if (!hasCookie) {
+      router.push('/auth?redirect=/diagnosis/location')
+    }
+  }, [router])
 
   const [postalCode, setPostalCode] = useState('')
   const [petType, setPetType] = useState<PetType | null>(null)
