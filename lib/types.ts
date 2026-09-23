@@ -65,7 +65,7 @@ export interface DiagnosisFormData {
   diseases: Disease[]
   medication: MedicationStatus
   specialDiet: '必要（療法食）' | '必要（アレルギー対応）' | '必要（その他）' | '不要'
-  vaccinationStatus: 'すべて接種済' | '一部未接種' | '未接種' | '不明'
+  vaccinationStatus: '全て接種済' | '一部接種済' | '未接種' | '不明'
 
   // STEP4 行動特性（10点スコア）
   behavior: BehaviorScores

@@ -135,7 +135,7 @@ export default function Step3Health({ data, onChange }: Props) {
           ワクチン接種状況 <span className="text-red-500">*</span>
         </label>
         <div className="grid grid-cols-2 gap-2">
-          {(['すべて接種済', '一部未接種', '未接種', '不明'] as const).map(v => (
+          {(['全て接種済', '一部接種済', '未接種', '不明'] as const).map(v => (
             <button key={v} type="button" onClick={() => onChange({ vaccinationStatus: v })}
               className={`py-2 px-3 rounded-lg border-2 text-xs font-medium transition-all ${
                 data.vaccinationStatus === v
@@ -145,7 +145,7 @@ export default function Step3Health({ data, onChange }: Props) {
             </button>
           ))}
         </div>
-        {data.vaccinationStatus && data.vaccinationStatus !== 'すべて接種済' && (
+        {data.vaccinationStatus && data.vaccinationStatus !== '全て接種済' && (
           <p className="text-xs text-red-700 bg-red-50 border border-red-200 rounded-lg p-2 mt-2">
             ⚠️ 避難所での感染症リスクが高まります。最寄りの動物病院でワクチン接種を検討してください。
           </p>
