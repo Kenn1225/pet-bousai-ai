@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import ServiceWorkerRegister from "./sw-register";
+import ThemeToggle from "@/components/ThemeToggle";
+import ToastContainer from "@/components/ToastContainer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -52,8 +54,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="ペット防災診断" />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <ServiceWorkerRegister />
+        <ThemeToggle />
+        <ToastContainer />
         {children}
       </body>
     </html>
