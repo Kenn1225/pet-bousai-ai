@@ -169,7 +169,7 @@ export default function ProDiagnosisPage() {
           ) : (
             <button type="button" onClick={() => handleSubmit('free')} disabled={!isValid() || loading}
               className="w-full py-3 bg-violet-600 text-white rounded-xl text-sm font-semibold hover:bg-violet-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
-              {loading ? '処理中…' : '診断する'}
+              {loading ? '処理中…' : '防災力カルテ'}
             </button>
           )}
         </div>
