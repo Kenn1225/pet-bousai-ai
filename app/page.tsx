@@ -1,6 +1,19 @@
+'use client'
+
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function Home() {
+  const router = useRouter()
+
+  useEffect(() => {
+    const hasCookie = document.cookie.split('; ').some(row => row.startsWith('pet_auth='))
+    if (!hasCookie) {
+      router.push('/auth?redirect=/')
+    }
+  }, [router])
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-emerald-50">
       {/* Hero */}

@@ -7,6 +7,13 @@ import Link from 'next/link'
 export default function DiagnosisSelectPage() {
   const router = useRouter()
 
+  useEffect(() => {
+    const hasCookie = document.cookie.split('; ').some(row => row.startsWith('pet_auth='))
+    if (!hasCookie) {
+      router.push('/auth?redirect=/diagnosis')
+    }
+  }, [router])
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
@@ -43,7 +50,7 @@ export default function DiagnosisSelectPage() {
               </div>
             </div>
             <div className="inline-block px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-semibold group-hover:bg-emerald-700 transition-colors">
-              無料で診断 →
+              診断結果 →
             </div>
           </Link>
 

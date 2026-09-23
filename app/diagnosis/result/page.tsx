@@ -2,11 +2,25 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import dynamic from 'next/dynamic'
+import AnalysisChart from '@/components/AnalysisChart'
 import type { DiagnosisReport, RiskScores } from '@/lib/types'
+import { saveDiagnosisToHistory, getHistoryFromStorage, formatDate } from '@/lib/diagnosisHistory'
+
+const PDFDownloadButton = dynamic(() => import('@/components/PDFDownloadButton'), { ssr: false })
 
 interface ResultData {
   report: DiagnosisReport
   scores: RiskScores
+}
+
+interface HistoryItem {
+  petName?: string
+  diagnosisType: string
+  date: string
+  score: number
+  summary: string
 }
 
 function ScoreGauge({ label, value, invert = false }: { label: string; value: number; invert?: boolean }) {
@@ -34,11 +48,27 @@ const URGENCY_STYLE: Record<string, string> = {
 export default function ResultPage() {
   const router = useRouter()
   const [data, setData] = useState<ResultData | null>(null)
+  const [history, setHistory] = useState<HistoryItem[]>([])
 
   useEffect(() => {
     const stored = sessionStorage.getItem('diagnosisResult')
     if (!stored) { router.push('/diagnosis'); return }
-    setData(JSON.parse(stored))
+    const parsed = JSON.parse(stored)
+    setData(parsed)
+
+    // 診断結果を履歴に保存
+    saveDiagnosisToHistory('free', parsed)
+
+    // 履歴を取得して表示用に変換
+    const allHistory = getHistoryFromStorage()
+    const historyItems: HistoryItem[] = allHistory.slice(1, 6).map(h => ({
+      petName: h.petName,
+      diagnosisType: h.diagnosisType,
+      date: formatDate(h.timestamp),
+      score: h.score,
+      summary: h.summary,
+    }))
+    setHistory(historyItems)
   }, [router])
 
   if (!data) {
@@ -81,6 +111,19 @@ export default function ResultPage() {
             <ScoreGauge label="備蓄充足度" value={scores.supplyLevel} />
           </div>
         </div>
+
+        {/* 分析グラフ */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <AnalysisChart
+            title="3軸スコア分析"
+            labels={['健康', '避難', '備蓄']}
+            values={[100 - scores.healthRisk, 100 - scores.evacuationDifficulty, scores.supplyLevel]}
+            colors={['#10b981', '#f59e0b', '#3b82f6']}
+          />
+        </div>
+
+        {/* PDF出力ボタン */}
+        {data && <PDFDownloadButton report={data.report} scores={data.scores} petName={data.report.summary.catchCopy} />}
 
         {/* トップリスク */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
@@ -229,15 +272,44 @@ export default function ResultPage() {
           </a>
         </div>
 
+        {/* 診断履歴 */}
+        {history.length > 0 && (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 className="text-sm font-bold text-gray-700 mb-4">📋 過去の診断結果</h2>
+            <div className="space-y-3">
+              {history.map((item, i) => (
+                <div key={i} className="flex items-start justify-between py-2 border-b border-gray-100 last:border-0">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-semibold text-gray-700">{item.petName || 'ペット'}</span>
+                      <span className="text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">{item.diagnosisType}</span>
+                    </div>
+                    <p className="text-xs text-gray-600 mt-0.5">{item.summary}</p>
+                  </div>
+                  <div className="text-right flex-shrink-0 ml-2">
+                    <div className="text-sm font-bold text-emerald-600">{item.score}</div>
+                    <div className="text-xs text-gray-400">{item.date}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* 再診断ボタン */}
-        <div className="text-center py-2">
+        <div className="flex gap-3 py-2">
           <button
             type="button"
             onClick={() => { sessionStorage.removeItem('diagnosisResult'); router.push('/diagnosis') }}
-            className="px-6 py-3 border border-emerald-400 text-emerald-600 rounded-xl text-sm font-semibold hover:bg-emerald-50 transition-colors"
+            className="flex-1 px-6 py-3 border border-emerald-400 text-emerald-600 rounded-xl text-sm font-semibold hover:bg-emerald-50 transition-colors"
           >
             もう一度診断する
           </button>
+          <Link href="/diagnosis/history"
+            className="flex-1 px-6 py-3 bg-emerald-100 text-emerald-700 rounded-xl text-sm font-semibold hover:bg-emerald-200 transition-colors text-center"
+          >
+            履歴を見る
+          </Link>
         </div>
 
         <p className="text-center text-xs text-gray-400 pb-4">

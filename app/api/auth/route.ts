@@ -24,11 +24,20 @@ export async function POST(req: NextRequest) {
   }
 
   const res = NextResponse.json({ success: true })
+  const MAX_AGE = 60 * 60 * 24 // 24時間有効
   res.cookies.set('pet_auth', code.trim(), {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    maxAge: 60 * 60 * 24 * 365, // 1年間有効
+    maxAge: MAX_AGE,
+    path: '/',
+  })
+  // セッション開始時刻を記録
+  res.cookies.set('pet_auth_time', Date.now().toString(), {
+    httpOnly: false,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: MAX_AGE,
     path: '/',
   })
   return res

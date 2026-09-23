@@ -627,7 +627,7 @@ export default function SimpleDiagnosisPage() {
                   <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   AI が診断中…（30〜60秒）
                 </span>
-              ) : 'AI診断を開始する 🐾'}
+              ) : '診断結果を見る 🐾'}
             </button>
           )}
         </div>
