@@ -124,23 +124,9 @@ export default function LocationDiagnosisPage() {
           <button
             onClick={() => handleSubmit('free')}
             disabled={!isValid || loading}
-            className="flex-1 py-3 border-2 border-gray-300 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            className="w-full py-3 bg-amber-600 text-white rounded-xl text-sm font-semibold hover:bg-amber-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
-            {loading ? '処理中…' : '無料版で診断 (0円)'}
-          </button>
-          <button
-            onClick={() => handleSubmit('ai')}
-            disabled={!isValid || loading}
-            className="flex-1 py-3 bg-amber-600 text-white rounded-xl text-sm font-semibold hover:bg-amber-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-          >
-            {loading ? (
-              <span className="flex items-center justify-center gap-2">
-                <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                AI が診断中…
-              </span>
-            ) : (
-              'AI版で診断 ✨'
-            )}
+            {loading ? '処理中…' : '診断する'}
           </button>
         </div>
       </div>
