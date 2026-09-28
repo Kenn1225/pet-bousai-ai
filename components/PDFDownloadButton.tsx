@@ -13,6 +13,9 @@ interface PDFDownloadButtonProps {
 export default function PDFDownloadButton({ report, scores, petName }: PDFDownloadButtonProps) {
   const handleDownloadPdf = async () => {
     try {
+      alert('現在、PDF生成機能はメンテナンス中です。申し訳ございません。')
+      return
+
       const doc = generatePdfDocument({
         report,
         scores,
@@ -20,7 +23,7 @@ export default function PDFDownloadButton({ report, scores, petName }: PDFDownlo
         generatedAt: new Date().toLocaleString('ja-JP'),
       })
 
-      const blob = await pdf(doc).toBlob()
+      const blob = await pdf(doc as any).toBlob()
       const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url
