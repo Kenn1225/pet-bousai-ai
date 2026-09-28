@@ -389,16 +389,6 @@ export default function LpPage() {
             </div>
           </div>
 
-          {/* 1人プラン */}
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-5">
-            <p className="text-sm text-amber-600 font-bold mb-1">お一人でのお申込みの場合</p>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black text-amber-700">¥220,000</span>
-              <span className="text-sm text-gray-500">税込</span>
-            </div>
-            <p className="text-sm text-amber-600 mt-1">（通常¥330,000から 10万円引きのモニター価格）</p>
-          </div>
-
           <div className="space-y-3">
             {[
               '全12回ハイブリッド講義（録画視聴付き）',
